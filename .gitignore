@@ -47,6 +47,9 @@ backend/prescriptions/
 .env.local
 .env.production
 
+# Local development config with passwords
+backend/src/main/resources/application-dev.yml
+
 # Logs
 *.log
 logs/
