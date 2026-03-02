@@ -1,0 +1,602 @@
+/* ================================================
+   ANATOMY VIEWER - 3-Column Dashboard Layout
+   ================================================ */
+
+.anatomy-viewer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A1628 0%, #0D1B2A 50%, #1B263B 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.anatomy-viewer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(72, 209, 204, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Loading State ---- */
+.av-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 20px;
+}
+
+.av-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(0, 191, 255, 0.2);
+  border-top-color: #00BFFF;
+  border-radius: 50%;
+  animation: av-spin 0.8s linear infinite;
+}
+
+@keyframes av-spin {
+  to { transform: rotate(360deg); }
+}
+
+.av-loading p {
+  color: #A0AEC0;
+  font-size: 1rem;
+}
+
+/* ---- Header ---- */
+.viewer-header {
+  background: rgba(13, 27, 42, 0.97);
+  backdrop-filter: blur(20px);
+  padding: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 191, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+.av-header-left { display: flex; align-items: center; }
+
+.av-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.av-logo-icon { font-size: 1.5rem; }
+
+.av-logo-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00BFFF, #48D1CC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.av-patient-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 191, 255, 0.08);
+  padding: 8px 18px;
+  border-radius: 40px;
+  border: 1px solid rgba(0, 191, 255, 0.15);
+}
+
+.av-patient-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00BFFF, #7C3AED);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.av-patient-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.av-patient-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #FFFFFF;
+}
+
+.av-patient-meta {
+  font-size: 0.75rem;
+  color: #A0AEC0;
+}
+
+.av-back-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E0;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.av-back-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+/* ---- Main 3-Column Layout ---- */
+.av-main-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 340px;
+  height: calc(100vh - 65px);
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Left Sidebar ---- */
+.av-sidebar-left {
+  background: rgba(13, 27, 42, 0.95);
+  backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(0, 191, 255, 0.1);
+  padding: 20px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.av-sidebar-left::-webkit-scrollbar { width: 4px; }
+.av-sidebar-left::-webkit-scrollbar-track { background: transparent; }
+.av-sidebar-left::-webkit-scrollbar-thumb { background: rgba(0, 191, 255, 0.2); border-radius: 2px; }
+
+/* Vitals Card */
+.av-vitals-card {
+  background: rgba(0, 191, 255, 0.05);
+  border: 1px solid rgba(0, 191, 255, 0.12);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.av-vitals-avatar-lg {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00BFFF, #7C3AED);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 16px rgba(0, 191, 255, 0.3);
+}
+
+.av-vitals-name {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.av-vitals-id {
+  margin: 0 0 16px;
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+.av-vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.av-vital-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 8px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.av-vital-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #718096;
+  margin-bottom: 4px;
+}
+
+.av-vital-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+/* Pain Tracker Card */
+.av-pain-tracker-card {
+  background: rgba(255, 59, 48, 0.05);
+  border: 1px solid rgba(255, 59, 48, 0.12);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.av-pain-tracker-card h3 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: #FF6B6B;
+}
+
+.av-pain-subtitle {
+  font-size: 0.75rem;
+  color: #718096;
+  margin: 0 0 12px;
+}
+
+.av-no-pain {
+  text-align: center;
+  padding: 20px 10px;
+  background: rgba(72, 187, 120, 0.08);
+  border-radius: 10px;
+  border: 1px dashed rgba(72, 187, 120, 0.25);
+}
+
+.av-no-pain-icon {
+  display: block;
+  font-size: 2rem;
+  color: #48BB78;
+  margin-bottom: 6px;
+}
+
+.av-no-pain p {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  color: #48BB78;
+  font-weight: 500;
+}
+
+.av-no-pain-hint {
+  font-size: 0.7rem;
+  color: #718096;
+}
+
+.av-pain-list { display: flex; flex-direction: column; gap: 10px; }
+
+.av-pain-count-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.av-pain-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #FF6B6B;
+}
+
+.av-pain-clear {
+  background: rgba(255, 59, 48, 0.15);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  color: #FF6B6B;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.av-pain-clear:hover {
+  background: rgba(255, 59, 48, 0.25);
+}
+
+.av-pain-regions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.av-pain-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(255, 59, 48, 0.08);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #E2E8F0;
+  border-left: 2px solid #FF6B6B;
+}
+
+.av-pain-dot {
+  color: #FF6B6B;
+  font-size: 0.7rem;
+}
+
+/* Organs Card */
+.av-organs-card {
+  background: rgba(0, 191, 255, 0.04);
+  border: 1px solid rgba(0, 191, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.av-organs-card h3 {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #00BFFF;
+}
+
+.av-organs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.av-organ-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #CBD5E0;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.15s ease;
+}
+
+.av-organ-item:hover {
+  background: rgba(0, 191, 255, 0.08);
+  border-color: rgba(0, 191, 255, 0.15);
+}
+
+.av-organ-item.has-condition {
+  background: rgba(255, 59, 48, 0.08);
+  border-color: rgba(255, 59, 48, 0.2);
+  color: #FFA07A;
+}
+
+.av-organ-alert { font-size: 0.7rem; }
+
+/* ---- Center Anatomy Area ---- */
+.av-center {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.av-anatomy-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 191, 255, 0.1);
+  overflow: hidden;
+}
+
+.av-anatomy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(0, 191, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.av-anatomy-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.av-anatomy-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+.av-view-toggle {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.av-view-btn {
+  padding: 6px 16px;
+  border: none;
+  background: transparent;
+  color: #718096;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.av-view-btn.active {
+  background: linear-gradient(135deg, #00BFFF, #0099CC);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 191, 255, 0.3);
+}
+
+.av-view-btn:hover:not(.active) {
+  color: #A0AEC0;
+}
+
+.av-anatomy-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  min-height: 0;
+  background: 
+    radial-gradient(ellipse at center, rgba(0, 191, 255, 0.03) 0%, transparent 70%);
+}
+
+.av-controls-hint {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 191, 255, 0.06);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.av-controls-hint p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+/* ---- Right Sidebar ---- */
+.av-sidebar-right {
+  background: rgba(13, 27, 42, 0.95);
+  backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(0, 191, 255, 0.1);
+  padding: 20px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.av-sidebar-right::-webkit-scrollbar { width: 4px; }
+.av-sidebar-right::-webkit-scrollbar-track { background: transparent; }
+.av-sidebar-right::-webkit-scrollbar-thumb { background: rgba(0, 191, 255, 0.2); border-radius: 2px; }
+
+/* ---- Medical Record Mini Cards ---- */
+.av-part-records {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.av-part-records-title {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: #00BFFF;
+  font-weight: 600;
+}
+
+.av-record-mini {
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  margin-bottom: 8px;
+  transition: all 0.15s ease;
+}
+
+.av-record-mini.active {
+  border-color: rgba(255, 59, 48, 0.25);
+  background: rgba(255, 59, 48, 0.06);
+}
+
+.av-record-mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.av-record-mini-date {
+  font-size: 0.7rem;
+  color: #718096;
+}
+
+.av-record-mini-status {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.av-record-mini-status.under_treatment {
+  color: #FF6B6B;
+  background: rgba(255, 59, 48, 0.12);
+}
+
+.av-record-mini-status.normal {
+  color: #48BB78;
+  background: rgba(72, 187, 120, 0.12);
+}
+
+.av-record-mini-diagnosis {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: #E2E8F0;
+  line-height: 1.4;
+}
+
+.av-record-mini-rx {
+  margin: 0;
+  font-size: 0.72rem;
+  color: #A0AEC0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1280px) {
+  .av-main-layout {
+    grid-template-columns: 250px 1fr 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .av-main-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .av-sidebar-left {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+    max-height: 200px;
+  }
+  
+  .av-center {
+    min-height: 60vh;
+  }
+  
+  .av-sidebar-right {
+    border-left: none;
+    border-top: 1px solid rgba(0, 191, 255, 0.1);
+  }
+  
+  .viewer-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

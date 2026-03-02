@@ -1,0 +1,52 @@
+# ========================================
+# HEALTH ATLAS - INSTALLATION COMMANDS
+# ========================================
+# Academic Project - H2 Database (No PostgreSQL needed!)
+# Copy and paste these commands into PowerShell (Run as Administrator)
+
+# ========================================
+# OPTION 1: Install Both at Once
+# ========================================
+
+winget install Microsoft.OpenJDK.17; winget install Apache.Maven
+
+
+# ========================================
+# OPTION 2: Install One by One
+# ========================================
+
+# Step 1: Install Java 17
+winget install Microsoft.OpenJDK.17
+
+# Step 2: Install Maven
+winget install Apache.Maven
+
+
+# ========================================
+# VERIFICATION COMMANDS
+# ========================================
+# After installation, close PowerShell, reopen it, then run:
+
+java -version
+
+mvn -version
+
+
+# ========================================
+# ALTERNATIVE: Using Chocolatey
+# ========================================
+# If winget doesn't work, use these:
+
+choco install openjdk17 -y
+
+choco install maven -y
+
+
+# ========================================
+# NOTES
+# ========================================
+# - Run PowerShell as Administrator (Right-click PowerShell → Run as Administrator)
+# - After installation, CLOSE and REOPEN PowerShell
+# - No database installation needed! (Using H2 in-memory database)
+# - H2 Console available at: http://localhost:8080/h2-console
+# - Database file stored in: ./data/healthatlas.mv.db

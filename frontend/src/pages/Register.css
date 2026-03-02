@@ -1,0 +1,111 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 500px;
+}
+
+.register-card h1 {
+  color: var(--accent-primary);
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.register-card h2 {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.role-selector {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background: var(--bg-section);
+  border-radius: 8px;
+}
+
+.role-selector label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.role-selector input[type="radio"] {
+  width: auto;
+  margin: 0;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid var(--border-input);
+  border-radius: 5px;
+  font-size: 14px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+
+.login-link {
+  margin-top: 20px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.login-link a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.success-message h3 {
+  color: #155724;
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+}
+
+.success-message p {
+  color: #155724;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.success-message strong {
+  font-weight: 700;
+  color: #0c3d1a;
+}
+
+.success-message .redirect-notice {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #0c5428;
+}

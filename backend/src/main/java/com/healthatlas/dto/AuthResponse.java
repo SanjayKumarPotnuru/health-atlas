@@ -1,0 +1,17 @@
+package com.healthatlas.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthResponse {
+    private String token;
+    private String email;
+    private String role;
+    private Long userId;
+    private Long profileId; // patient_id or doctor_id
+    private String name; // firstName + lastName
+}

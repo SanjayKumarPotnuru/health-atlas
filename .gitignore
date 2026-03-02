@@ -1,0 +1,57 @@
+# Java / Maven
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.log
+*.class
+
+# H2 Database files
+backend/data/
+*.db
+*.mv.db
+*.trace.db
+
+# Node.js / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Python
+medical-chatbot/__pycache__/
+medical-chatbot/*.pyc
+medical-chatbot/.env
+.venv/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads
+uploads/
+backend/uploads/
+backend/prescriptions/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+logs/
+
+# Build outputs
+build/
+dist/
+out/

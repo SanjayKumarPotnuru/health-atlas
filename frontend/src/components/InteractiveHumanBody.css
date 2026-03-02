@@ -1,0 +1,787 @@
+/* ========================================
+   Interactive Human Body - Anatomy Card
+   Smooth silhouette with marker overlays
+   ======================================== */
+
+.ihb-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* ---- Gender Badge ---- */
+.ihb-gender-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e0e7ff, #ede9fe);
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border: 1px solid #c7d2fe;
+  box-shadow: 0 1px 3px rgba(67, 56, 202, 0.1);
+}
+
+.ihb-gender-badge.ihb-gender-female {
+  background: linear-gradient(135deg, #fce7f3, #f3e8ff);
+  color: #a21caf;
+  border-color: #f0abfc;
+  box-shadow: 0 1px 3px rgba(162, 28, 175, 0.12);
+}
+
+/* ---- Anatomy Card ---- */
+.ihb-card {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 595 / 1135;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.04),
+    0 4px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* ---- Body SVG Flip Container ---- */
+.ihb-body-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.ihb-body-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.ihb-body-face-back {
+  transform: rotateY(180deg);
+}
+
+.ihb-body-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Body Path Styling */
+.ihb-path-silhouette {
+  fill: #cbd5e1;
+  opacity: 0.28;
+  stroke: #94a3b8;
+  stroke-width: 2;
+}
+
+/* Female body - softer silhouette with slight pink tint */
+.ihb-female .ihb-path-silhouette {
+  fill: #c4b5d0;
+  opacity: 0.25;
+  stroke: #a78bba;
+  stroke-width: 2;
+}
+
+.ihb-path-navel {
+  fill: #b8c5d3;
+  opacity: 0.35;
+}
+
+.ihb-path-details {
+  stroke: #64748b;
+  stroke-width: 2.5;
+  fill: none;
+  opacity: 0.32;
+}
+
+/* Female overlay emphasis */
+.ihb-female-overlays path {
+  transition: opacity 0.3s ease;
+}
+
+/* ---- Markers Layer ---- */
+.ihb-markers-layer {
+  position: absolute;
+  inset: 28px; /* match card padding */
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ---- Individual Marker ---- */
+.ihb-marker {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  margin-top: -14px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.ihb-marker:hover {
+  transform: scale(1.25);
+  z-index: 20;
+}
+
+.ihb-marker-selected {
+  transform: scale(1.3);
+  z-index: 20;
+}
+
+.ihb-marker-selected .ihb-marker-dot {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 0 8px var(--marker-color, #ef4444),
+    0 0 20px var(--marker-color, #ef4444);
+}
+
+/* Pulsing ping ring */
+.ihb-marker-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--marker-color, #ef4444);
+  opacity: 0.35;
+  animation: markerPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes markerPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Solid marker dot */
+.ihb-marker-dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--marker-color, #ef4444);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    0 0 12px color-mix(in srgb, var(--marker-color, #ef4444) 50%, transparent);
+  z-index: 1;
+}
+
+.ihb-marker-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Tooltip ---- */
+.ihb-tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  animation: tooltipFadeIn 0.15s ease;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.ihb-tooltip-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ihb-tooltip-severity {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.ihb-sev-active {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.ihb-sev-past {
+  background: rgba(249, 115, 22, 0.25);
+  color: #fdba74;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.ihb-tooltip-diagnosis {
+  font-size: 11px;
+  color: #94a3b8;
+  max-width: 200px;
+  line-height: 1.3;
+}
+
+.ihb-tooltip-pain {
+  font-size: 10px;
+  font-weight: 800;
+  color: #fca5a5;
+  letter-spacing: 1.5px;
+}
+
+/* ---- Severity Legend ---- */
+.ihb-legend {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 14px 20px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.ihb-legend-title {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(148, 163, 184, 0.7);
+  margin-bottom: 10px;
+}
+
+.ihb-legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.ihb-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.ihb-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.ihb-legend-dot-pain {
+  background: rgba(239, 68, 68, 0.4);
+  border: 1.5px solid rgba(239, 68, 68, 0.7);
+}
+
+/* ========================================
+   Issues Panel Styles
+   (used by AnatomyViewer sidebar)
+   ======================================== */
+
+.anatomy-issues-panel {
+  background: rgba(13, 27, 42, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 191, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  height: fit-content;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.anatomy-issues-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.anatomy-issues-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.anatomy-issues-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 191, 255, 0.2);
+  border-radius: 2px;
+}
+
+.aip-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.aip-header-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.aip-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.aip-subtitle {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 16px;
+  margin-left: 42px;
+}
+
+.aip-issue-card {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.aip-issue-card:hover {
+  border-color: rgba(0, 191, 255, 0.3);
+  background: rgba(0, 191, 255, 0.05);
+  transform: translateX(2px);
+}
+
+.aip-issue-card.selected {
+  border-color: rgba(59, 130, 246, 0.6);
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+}
+
+.aip-issue-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.aip-issue-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.aip-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+.aip-badge-active, .aip-badge-high {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.aip-badge-medium {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.aip-badge-low {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.aip-badge-view {
+  background: rgba(148, 163, 184, 0.1);
+  color: #64748b;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.aip-issue-arrow {
+  color: #475569;
+  font-size: 16px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.aip-issue-card.selected .aip-issue-arrow {
+  color: #3b82f6;
+  transform: rotate(90deg);
+}
+
+.aip-issue-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 4px 0;
+  text-transform: capitalize;
+}
+
+.aip-issue-desc {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.aip-issue-card.selected .aip-issue-desc {
+  color: #94a3b8;
+  -webkit-line-clamp: unset;
+}
+
+/* Detail Panel */
+.aip-detail-panel {
+  margin-top: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+  border-radius: 14px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: detailSlideIn 0.3s ease;
+}
+
+@keyframes detailSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aip-detail-panel::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.1);
+  filter: blur(30px);
+}
+
+.aip-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.aip-detail-icon {
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.aip-detail-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.aip-detail-label {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #60a5fa;
+  text-transform: uppercase;
+}
+
+.aip-detail-text {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0 0 14px 0;
+}
+
+.aip-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.aip-detail-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.aip-detail-meta-item span:first-child {
+  font-size: 16px;
+}
+
+.aip-detail-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.aip-detail-actions button {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.aip-btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.aip-btn-primary:hover {
+  background: #2563eb;
+}
+
+.aip-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.aip-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Close button */
+.aip-detail-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #94a3b8;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.aip-detail-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Quick Stats */
+.aip-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.aip-stat {
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.aip-stat-high {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.aip-stat-medium {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.aip-stat-low {
+  background: rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.aip-stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.aip-stat-high .aip-stat-label { color: #fca5a5; }
+.aip-stat-medium .aip-stat-label { color: #fdba74; }
+.aip-stat-low .aip-stat-label { color: #fde047; }
+
+.aip-stat-count {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.aip-stat-high .aip-stat-count { color: #ef4444; }
+.aip-stat-medium .aip-stat-count { color: #f97316; }
+.aip-stat-low .aip-stat-count { color: #eab308; }
+
+/* No Issues State */
+.aip-no-issues {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.aip-no-issues-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(34, 197, 94, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 12px;
+}
+
+.aip-no-issues h4 {
+  color: #94a3b8;
+  font-size: 15px;
+  margin: 0 0 6px;
+}
+
+.aip-no-issues p {
+  color: #475569;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Vital Score Card */
+.aip-vital-card {
+  margin-top: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.aip-vital-card::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.aip-vital-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.aip-vital-subtitle {
+  font-size: 11px;
+  color: rgba(199, 210, 254, 0.8);
+  margin: 0 0 12px;
+}
+
+.aip-vital-score {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.aip-vital-number {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.aip-vital-max {
+  font-size: 14px;
+  color: rgba(199, 210, 254, 0.7);
+  padding-bottom: 4px;
+}
+
+.aip-vital-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.aip-vital-bar-fill {
+  height: 100%;
+  background: white;
+  border-radius: 3px;
+  transition: width 1s ease;
+}

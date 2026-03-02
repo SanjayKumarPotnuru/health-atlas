@@ -1,0 +1,23 @@
+# Health Atlas AI Chatbot - Python Dependencies
+
+# Web framework and server
+fastapi>=0.115.0
+uvicorn>=0.32.0
+
+# OpenAI SDK for GitHub Models API
+openai>=1.50.0
+
+# HTTP client for API calls
+httpx>=0.27.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Data validation
+pydantic>=2.5.0
+
+# MCP (Model Context Protocol) - for future integration
+mcp>=1.0.0
+
+# Development tools
+debugpy>=1.8.0
