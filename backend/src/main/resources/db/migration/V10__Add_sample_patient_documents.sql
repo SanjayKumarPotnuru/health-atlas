@@ -11,7 +11,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  2458320,
  'X-ray imaging showing compound fracture of left femur mid-shaft before surgical intervention',
  true,
- DATEADD('DAY', -15, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '15 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Arjun' AND last_name = 'Menon'),
@@ -22,7 +22,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  1876543,
  'Post-operative X-ray showing successful internal fixation with plates and screws',
  true,
- DATEADD('DAY', -14, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '14 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Arjun' AND last_name = 'Menon'),
@@ -33,7 +33,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  567890,
  'Hospital discharge documentation with post-operative care instructions and follow-up schedule',
  true,
- DATEADD('DAY', -13, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '13 days');
 
 -- Patient 2: Sneha Iyer - Heart condition documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -45,7 +45,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  987654,
  'Electrocardiogram showing irregular rhythm consistent with atrial fibrillation',
  true,
- DATEADD('DAY', -30, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '30 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Sneha' AND last_name = 'Iyer'),
@@ -56,7 +56,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  3456789,
  'Echocardiogram showing ejection fraction of 45% and chamber dimensions',
  true,
- DATEADD('DAY', -28, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '28 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Sneha' AND last_name = 'Iyer'),
@@ -67,7 +67,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  456123,
  'Coagulation studies for anticoagulation therapy monitoring',
  true,
- DATEADD('DAY', -7, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '7 days');
 
 -- Patient 3: Vikram Desai - Stomach ulcer documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -79,7 +79,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  4567890,
  'Upper GI endoscopy findings showing multiple gastric ulcers with biopsy results',
  true,
- DATEADD('DAY', -10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '10 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Vikram' AND last_name = 'Desai'),
@@ -90,7 +90,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  234567,
  'Laboratory confirmation of H. pylori infection - positive result',
  true,
- DATEADD('DAY', -10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '10 days');
 
 -- Patient 4: Ananya Krishnan - Migraine documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -102,7 +102,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  5678901,
  'Brain MRI showing no structural abnormalities, ruling out secondary causes of headache',
  true,
- DATEADD('DAY', -45, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '45 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Ananya' AND last_name = 'Krishnan'),
@@ -113,7 +113,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  345678,
  'Patient-maintained headache diary tracking frequency, severity, and triggers',
  false,
- DATEADD('DAY', -5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '5 days');
 
 -- Patient 5: Rohit Malhotra - Kidney stones documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -125,7 +125,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  6789012,
  'Non-contrast CT scan showing bilateral renal calculi with measurements',
  true,
- DATEADD('DAY', -7, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '7 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Rohit' AND last_name = 'Malhotra'),
@@ -136,7 +136,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  234890,
  'Urinalysis showing microscopic hematuria and crystals consistent with kidney stones',
  true,
- DATEADD('DAY', -7, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '7 days');
 
 -- Patient 6: Divya Nair - Lung infection documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -148,7 +148,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  2345671,
  'Chest X-ray showing increased bronchovascular markings, no consolidation',
  true,
- DATEADD('DAY', -5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '5 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Divya' AND last_name = 'Nair'),
@@ -159,7 +159,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  567234,
  'Spirometry results showing mild obstructive pattern during acute infection',
  true,
- DATEADD('DAY', -4, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '4 days');
 
 -- Patient 7: Karthik Rao - Liver disease documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -171,7 +171,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  3456712,
  'Abdominal ultrasound showing moderate hepatic steatosis consistent with NAFLD',
  true,
- DATEADD('DAY', -20, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Karthik' AND last_name = 'Rao'),
@@ -182,7 +182,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  234561,
  'Blood work showing elevated ALT and AST levels indicative of liver inflammation',
  true,
- DATEADD('DAY', -20, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Karthik' AND last_name = 'Rao'),
@@ -193,7 +193,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  456234,
  'Comprehensive metabolic panel showing lipid profile and glucose levels',
  true,
- DATEADD('DAY', -20, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days');
 
 -- Patient 8: Neha Gupta - Thyroid documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -205,7 +205,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  345612,
  'Lab results showing elevated TSH and low Free T4 confirming hypothyroidism',
  true,
- DATEADD('DAY', -12, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '12 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Neha' AND last_name = 'Gupta'),
@@ -216,7 +216,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  2567890,
  'Thyroid ultrasound showing slightly enlarged gland with normal echotexture',
  true,
- DATEADD('DAY', -12, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '12 days');
 
 -- Patient 9: Aditya Chopra - Eye/Diabetic documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -228,7 +228,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  4567123,
  'Fundus photography showing microaneurysms and hemorrhages in both eyes',
  true,
- DATEADD('DAY', -25, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '25 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Aditya' AND last_name = 'Chopra'),
@@ -239,7 +239,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  3456123,
  'Optical Coherence Tomography of macula showing early diabetic changes',
  true,
- DATEADD('DAY', -25, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '25 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Aditya' AND last_name = 'Chopra'),
@@ -250,7 +250,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  234567,
  'Glycated hemoglobin test showing poor diabetes control at 9.2%',
  true,
- DATEADD('DAY', -26, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '26 days');
 
 -- Patient 10: Pooja Bhatt - Skin condition documents
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
@@ -262,7 +262,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  1234567,
  'Histopathology report confirming psoriasis vulgaris diagnosis',
  true,
- DATEADD('DAY', -18, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '18 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Pooja' AND last_name = 'Bhatt'),
@@ -273,7 +273,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  2345678,
  'Clinical photographs documenting extent and severity of psoriatic plaques',
  false,
- DATEADD('DAY', -18, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '18 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Pooja' AND last_name = 'Bhatt'),
@@ -284,7 +284,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  345678,
  'Baseline liver function tests before starting methotrexate therapy',
  true,
- DATEADD('DAY', -19, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '19 days');
 
 -- Additional general health documents for various patients
 
@@ -297,7 +297,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  1567890,
  'Comprehensive annual health examination including blood work and vital signs',
  true,
- DATEADD('DAY', -180, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '180 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Rohit' AND last_name = 'Malhotra'),
@@ -308,7 +308,7 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  456789,
  'COVID-19 vaccination certificate showing completed primary series and booster',
  true,
- DATEADD('DAY', -365, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '365 days');
 
 INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, file_type, file_size, description, is_verified, uploaded_at) VALUES
 ((SELECT id FROM patients WHERE first_name = 'Arjun' AND last_name = 'Menon'),
@@ -319,4 +319,4 @@ INSERT INTO patient_uploads (patient_id, organ_id, document_name, file_path, fil
  678901,
  'Health insurance approval letter for surgical procedure',
  true,
- DATEADD('DAY', -16, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '16 days');

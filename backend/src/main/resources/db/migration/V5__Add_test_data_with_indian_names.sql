@@ -54,7 +54,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Pain management: Tramadol 50mg (twice daily), Calcium supplements 500mg (once daily), Physical therapy starting week 4',
  'Patient sustained fracture from motorcycle accident. Surgery performed for open reduction and internal fixation. Cast applied. Expected recovery: 8-12 weeks. Follow-up in 2 weeks for X-ray.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -15, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '15 days');
 
 -- Patient 2: Sneha Iyer - Heart condition (cardiovascular)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -65,7 +65,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Apixaban 5mg (twice daily), Metoprolol 50mg (twice daily), Regular ECG monitoring',
  'Patient presented with irregular heartbeat and palpitations. EKG shows AFib. Started on anticoagulation therapy. Risk of stroke - managing with blood thinners. Lifestyle modifications recommended.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -30, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '30 days');
 
 -- Patient 3: Vikram Desai - Stomach ulcers
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -76,7 +76,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Omeprazole 40mg (once daily before breakfast), Amoxicillin 1g + Clarithromycin 500mg (triple therapy for H. pylori), Avoid NSAIDs',
  'Endoscopy revealed 3 ulcers approximately 5-8mm in size. H. pylori test positive. Started on triple therapy. Dietary modifications: avoid spicy food, alcohol, smoking. Follow-up endoscopy in 6 weeks.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '10 days');
 
 -- Patient 4: Ananya Krishnan - Migraine (brain/neurological)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -87,7 +87,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Sumatriptan 50mg (as needed for acute attacks, max 2/day), Propranolol 80mg (daily preventive), Magnesium supplements',
  'Patient experiencing debilitating migraines affecting work and daily life. MRI brain scan ruled out structural abnormalities. Triggers identified: stress, lack of sleep, bright lights. Recommend headache diary.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -45, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '45 days');
 
 -- Patient 5: Rohit Malhotra - Kidney stones
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -98,7 +98,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Tamsulosin 0.4mg (once daily), Pain relief: Diclofenac 50mg (as needed), Increase water intake to 3-4 liters/day',
  'Patient presented with severe flank pain and hematuria. CT scan confirms multiple kidney stones. Conservative management with medication to facilitate stone passage. If stones do not pass in 4 weeks, consider lithotripsy.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -7, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '7 days');
 
 -- Patient 6: Divya Nair - Respiratory infection (lungs)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -109,7 +109,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Azithromycin 500mg (day 1), then 250mg (days 2-5), Salbutamol inhaler (2 puffs every 6 hours), Mucolytic syrup',
  'Patient has persistent cough for 2 weeks with yellowish sputum. Chest X-ray shows increased bronchovascular markings. No pneumonia. Breathing exercises recommended. Avoid cold air and dust.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '5 days');
 
 -- Patient 7: Karthik Rao - Liver disease
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -120,7 +120,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Vitamin E supplements 400 IU (daily), Ursodeoxycholic acid 300mg (twice daily), Weight loss program',
  'Ultrasound shows moderate hepatic steatosis. No cirrhosis. Associated with metabolic syndrome. Patient needs to lose 10% body weight. Diet: low carb, low fat. Exercise: 30 min daily walking. Recheck LFTs in 3 months.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -20, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days');
 
 -- Patient 8: Neha Gupta - Thyroid disorder
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -131,7 +131,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Levothyroxine 75mcg (once daily on empty stomach, 30 min before breakfast), Monthly TSH monitoring for first 3 months',
  'Patient complaining of fatigue, weight gain (5kg in 3 months), cold intolerance, and constipation. Confirmed hypothyroidism. Started on thyroid replacement therapy. Recheck thyroid function in 6 weeks.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -12, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '12 days');
 
 -- Patient 9: Aditya Chopra - Eye problem (vision)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -142,7 +142,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Strict blood sugar control (target HbA1c < 7%), Laser photocoagulation scheduled, Regular ophthalmology follow-up every 3 months',
  'Patient is diabetic for 8 years with poor glycemic control. Fundoscopy shows retinal changes. Risk of vision loss if not managed. Referred to retina specialist for possible laser treatment. Emphasize importance of diabetes control.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -25, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '25 days');
 
 -- Patient 10: Pooja Bhatt - Skin condition (dermatological)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -153,7 +153,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Topical: Clobetasol propionate 0.05% cream (twice daily on plaques), Calcipotriol ointment, Coal tar shampoo for scalp. Oral: Methotrexate 15mg (weekly)',
  'Patient has chronic plaque psoriasis. Recent flare-up due to stress. Skin biopsy confirmed diagnosis. Started on systemic therapy as topical alone insufficient. Monitor liver function monthly due to methotrexate. Phototherapy option if no improvement.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -18, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '18 days');
 
 -- Additional medical records to show patient-doctor relationships and history
 
@@ -166,7 +166,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Lifestyle modifications recommended',
  'Routine checkup showed resting heart rate of 95 bpm. Suggested stress reduction and regular exercise. This was before AFib diagnosis.',
  'NORMAL',
- DATEADD('DAY', -180, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '180 days');
 
 -- Patient 5: Rohit Malhotra - Previous kidney checkup
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -177,7 +177,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'None required',
  'Annual health checkup. eGFR: 95 ml/min, Creatinine: 0.9 mg/dL. All normal. Recommended adequate hydration.',
  'NORMAL',
- DATEADD('DAY', -365, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '365 days');
 
 -- Consent Management: Doctor-Patient Access Control
 -- Establish relationships between doctors and patients with various consent statuses
@@ -189,9 +189,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Priya' AND last_name = 'Reddy'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -35, CURRENT_DATE),
- DATEADD('DAY', -33, CURRENT_DATE),
- DATEADD('DAY', -3, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '35 days',
+ CURRENT_DATE - INTERVAL '33 days',
+ CURRENT_DATE - INTERVAL '3 days');
 
 -- Pending: Dr. Rajesh Sharma (Cardiology) - requesting access for cardiac evaluation
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -199,7 +199,7 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Rajesh' AND last_name = 'Sharma'),
  'SEVEN_DAYS',
  'PENDING',
- DATEADD('DAY', -2, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '2 days');
 
 -- Patient 2: Sneha Iyer - Consents
 -- Approved: Dr. Rajesh Sharma (Cardiology) - treating AFib
@@ -208,8 +208,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Rajesh' AND last_name = 'Sharma'),
  'ALWAYS',
  'APPROVED',
- DATEADD('DAY', -45, CURRENT_DATE),
- DATEADD('DAY', -44, CURRENT_DATE),
+ CURRENT_DATE - INTERVAL '45 days',
+ CURRENT_DATE - INTERVAL '44 days',
  NULL);
 
 -- Approved: Dr. Suresh Kumar (General Medicine) - general monitoring
@@ -218,9 +218,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Suresh' AND last_name = 'Kumar'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -20, CURRENT_DATE),
- DATEADD('DAY', -19, CURRENT_DATE),
- DATEADD('DAY', 10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days',
+ CURRENT_DATE - INTERVAL '19 days',
+ CURRENT_DATE + INTERVAL '10 days');
 
 -- Patient 3: Vikram Desai - Consents
 -- Approved: Dr. Amit Patel (Gastroenterology) - treating peptic ulcer
@@ -229,8 +229,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Amit' AND last_name = 'Patel'),
  'ALWAYS',
  'APPROVED',
- DATEADD('DAY', -30, CURRENT_DATE),
- DATEADD('DAY', -29, CURRENT_DATE),
+ CURRENT_DATE - INTERVAL '30 days',
+ CURRENT_DATE - INTERVAL '29 days',
  NULL);
 
 -- Pending: Dr. Rajesh Sharma (Cardiology) - requesting for comprehensive checkup
@@ -239,7 +239,7 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Rajesh' AND last_name = 'Sharma'),
  'ONE_TIME',
  'PENDING',
- DATEADD('DAY', -1, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '1 days');
 
 -- Patient 4: Ananya Krishnan - Consents
 -- Approved: Dr. Kavita Singh (Neurology) - treating migraine
@@ -248,9 +248,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Kavita' AND last_name = 'Singh'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -25, CURRENT_DATE),
- DATEADD('DAY', -24, CURRENT_DATE),
- DATEADD('DAY', 5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '25 days',
+ CURRENT_DATE - INTERVAL '24 days',
+ CURRENT_DATE + INTERVAL '5 days');
 
 -- Revoked: Dr. Suresh Kumar (General Medicine) - patient revoked access
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at, approved_at, revoked_at) VALUES
@@ -258,9 +258,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Suresh' AND last_name = 'Kumar'),
  'SEVEN_DAYS',
  'REVOKED',
- DATEADD('DAY', -60, CURRENT_DATE),
- DATEADD('DAY', -58, CURRENT_DATE),
- DATEADD('DAY', -40, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '60 days',
+ CURRENT_DATE - INTERVAL '58 days',
+ CURRENT_DATE - INTERVAL '40 days');
 
 -- Patient 5: Rohit Malhotra - Consents
 -- Approved: Dr. Suresh Kumar (General Medicine) - treating UTI
@@ -269,9 +269,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Suresh' AND last_name = 'Kumar'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -14, CURRENT_DATE),
- DATEADD('DAY', -13, CURRENT_DATE),
- DATEADD('DAY', 16, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '14 days',
+ CURRENT_DATE - INTERVAL '13 days',
+ CURRENT_DATE + INTERVAL '16 days');
 
 -- Pending: Dr. Kavita Singh (Neurology) - requesting neurological assessment
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -288,9 +288,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Rajesh' AND last_name = 'Sharma'),
  'SEVEN_DAYS',
  'APPROVED',
- DATEADD('DAY', -10, CURRENT_DATE),
- DATEADD('DAY', -9, CURRENT_DATE),
- DATEADD('DAY', -2, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '10 days',
+ CURRENT_DATE - INTERVAL '9 days',
+ CURRENT_DATE - INTERVAL '2 days');
 
 -- Pending: Dr. Amit Patel (Gastroenterology) - requesting access
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -298,7 +298,7 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Amit' AND last_name = 'Patel'),
  'THIRTY_DAYS',
  'PENDING',
- DATEADD('DAY', -3, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '3 days');
 
 -- Patient 7: Karthik Rao - Consents
 -- Approved: Dr. Amit Patel (Gastroenterology) - treating fatty liver
@@ -307,8 +307,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Amit' AND last_name = 'Patel'),
  'ALWAYS',
  'APPROVED',
- DATEADD('DAY', -50, CURRENT_DATE),
- DATEADD('DAY', -49, CURRENT_DATE),
+ CURRENT_DATE - INTERVAL '50 days',
+ CURRENT_DATE - INTERVAL '49 days',
  NULL);
 
 -- Approved: Dr. Suresh Kumar (General Medicine) - general health monitoring
@@ -317,8 +317,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Suresh' AND last_name = 'Kumar'),
  'ALWAYS',
  'APPROVED',
- DATEADD('DAY', -100, CURRENT_DATE),
- DATEADD('DAY', -99, CURRENT_DATE),
+ CURRENT_DATE - INTERVAL '100 days',
+ CURRENT_DATE - INTERVAL '99 days',
  NULL);
 
 -- Patient 8: Neha Gupta - Consents
@@ -328,9 +328,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Kavita' AND last_name = 'Singh'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -22, CURRENT_DATE),
- DATEADD('DAY', -21, CURRENT_DATE),
- DATEADD('DAY', 8, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '22 days',
+ CURRENT_DATE - INTERVAL '21 days',
+ CURRENT_DATE + INTERVAL '8 days');
 
 -- Pending: Dr. Priya Reddy (Orthopedics) - requesting consultation
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -338,7 +338,7 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Priya' AND last_name = 'Reddy'),
  'ONE_TIME',
  'PENDING',
- DATEADD('DAY', -1, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '1 days');
 
 -- Patient 9: Aditya Chopra - Consents
 -- Approved: Dr. Priya Reddy (Orthopedics) - treating diabetic retinopathy (eye specialist consult)
@@ -347,8 +347,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Priya' AND last_name = 'Reddy'),
  'ALWAYS',
  'APPROVED',
- DATEADD('DAY', -40, CURRENT_DATE),
- DATEADD('DAY', -39, CURRENT_DATE),
+ CURRENT_DATE - INTERVAL '40 days',
+ CURRENT_DATE - INTERVAL '39 days',
  NULL);
 
 -- Revoked: Dr. Rajesh Sharma (Cardiology) - patient denied request
@@ -357,8 +357,8 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Rajesh' AND last_name = 'Sharma'),
  'SEVEN_DAYS',
  'REVOKED',
- DATEADD('DAY', -15, CURRENT_DATE),
- DATEADD('DAY', -14, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '15 days',
+ CURRENT_DATE - INTERVAL '14 days');
 
 -- Patient 10: Pooja Bhatt - Consents
 -- Approved: Dr. Suresh Kumar (General Medicine) - treating psoriasis
@@ -367,9 +367,9 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at,
  (SELECT id FROM doctors WHERE first_name = 'Suresh' AND last_name = 'Kumar'),
  'THIRTY_DAYS',
  'APPROVED',
- DATEADD('DAY', -20, CURRENT_DATE),
- DATEADD('DAY', -19, CURRENT_DATE),
- DATEADD('DAY', 10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days',
+ CURRENT_DATE - INTERVAL '19 days',
+ CURRENT_DATE + INTERVAL '10 days');
 
 -- Pending: Dr. Kavita Singh (Neurology) - requesting neurological evaluation
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -377,7 +377,7 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Kavita' AND last_name = 'Singh'),
  'THIRTY_DAYS',
  'PENDING',
- DATEADD('DAY', -5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '5 days');
 
 -- Pending: Dr. Amit Patel (Gastroenterology) - requesting digestive system evaluation
 INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at) VALUES
@@ -385,4 +385,4 @@ INSERT INTO consents (patient_id, doctor_id, consent_type, status, requested_at)
  (SELECT id FROM doctors WHERE first_name = 'Amit' AND last_name = 'Patel'),
  'ONE_TIME',
  'PENDING',
- DATEADD('DAY', -1, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '1 days');

@@ -11,7 +11,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Metoprolol 25mg (once daily), Low sodium diet, Annual echocardiogram follow-up',
  'Patient referred for cardiac evaluation after elevated BP readings. Echo shows mild MR with normal LV function. EF 60%. No surgical intervention needed. Lifestyle modifications advised.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -20, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '20 days');
 
 -- Brain - NORMAL (past orange marker on head)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -22,7 +22,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Ibuprofen 400mg (as needed for headache), Neck stretching exercises daily, Stress management techniques',
  'Patient presented with recurring headaches lasting 3-4 hours. MRI brain and cervical spine normal. Likely stress and posture related. Resolved with lifestyle modifications and physiotherapy.',
  'NORMAL',
- DATEADD('DAY', -90, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '90 days');
 
 -- Kidneys - UNDER_TREATMENT (active red marker on lower back)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -33,7 +33,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Potassium citrate 10mEq (twice daily), Increase fluid intake to 3L/day, Low oxalate diet',
  'Patient presented with intermittent flank pain. Ultrasound confirmed small bilateral kidney stones. Conservative management initiated. Expected to pass naturally. Follow-up ultrasound in 3 months.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -10, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '10 days');
 
 -- Lungs - NORMAL (past orange marker on chest, but heart is higher severity so chest shows red)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -44,7 +44,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Course completed: Amoxicillin 500mg TID x7 days, Salbutamol inhaler PRN',
  'Presented with productive cough and low-grade fever. CXR showed mild bronchial wall thickening, no pneumonia. Completed antibiotic course successfully. Lungs clear on follow-up.',
  'NORMAL',
- DATEADD('DAY', -120, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '120 days');
 
 -- Liver - UNDER_TREATMENT (active red marker on abdomen)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -55,7 +55,7 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Vitamin E 400 IU (daily), Weight management program, Mediterranean diet recommended',
  'Incidental finding on abdominal ultrasound. Liver enzymes mildly elevated. No fibrosis on FibroScan. Advised dietary changes, regular exercise, and weight loss of 5-7kg. Recheck LFTs in 3 months.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -5, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '5 days');
 
 -- Eyes - UNDER_TREATMENT (active marker on head, but brain was NORMAL so head should show active for eyes)
 INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescriptions, clinical_notes, treatment_status, record_date) VALUES
@@ -66,4 +66,4 @@ INSERT INTO medical_records (patient_id, doctor_id, organ_id, diagnosis, prescri
  'Artificial tears (preservative-free) 4 times daily, Omega-3 fatty acid supplements 1000mg daily, Reduce screen time',
  'Patient reports persistent eye dryness and strain especially during prolonged computer use. Tear film breakup time reduced. No evidence of keratitis. Monitor response to artificial tears.',
  'UNDER_TREATMENT',
- DATEADD('DAY', -14, CURRENT_DATE));
+ CURRENT_DATE - INTERVAL '14 days');
