@@ -13,13 +13,13 @@ $env:PATH = "$env:JAVA_HOME\bin;C:\Users\skpotnur\Maven\bin;$env:PATH"
 # Navigate to backend directory
 Set-Location -Path "c:\Users\skpotnur\OneDrive - Hexagon\Desktop\HEALTHATLAS\Health Atlas\backend"
 
-Write-Host "Starting Spring Boot application..." -ForegroundColor Yellow
+Write-Host "Starting Spring Boot application with PostgreSQL..." -ForegroundColor Yellow
 Write-Host ""
 Write-Host "Backend will run on: http://localhost:8080" -ForegroundColor Green
-Write-Host "H2 Console: http://localhost:8080/h2-console" -ForegroundColor Green
+Write-Host "Database: PostgreSQL (localhost:5432/healthatlas)" -ForegroundColor Green
 Write-Host ""
 Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Red
 Write-Host ""
 
-# Start Maven
-mvn spring-boot:run
+# Start Maven with dev profile (uses PostgreSQL)
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
