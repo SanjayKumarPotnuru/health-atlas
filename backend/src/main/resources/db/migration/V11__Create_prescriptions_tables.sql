@@ -1,7 +1,7 @@
 -- V11: Create prescriptions and prescription_medicines tables
 
 CREATE TABLE prescriptions (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     patient_id BIGINT NOT NULL,
     doctor_id BIGINT NOT NULL,
     medical_record_id BIGINT,
@@ -24,7 +24,7 @@ CREATE TABLE prescriptions (
 );
 
 CREATE TABLE prescription_medicines (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     prescription_id BIGINT NOT NULL,
     serial_number INT NOT NULL,
     medicine_name VARCHAR(200) NOT NULL,
