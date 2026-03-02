@@ -48,11 +48,9 @@ services:
     region: oregon
     plan: free
     buildCommand: ""
-    envVars:
-      - key: VITE_API_URL
-        value: https://health-atlas-backend.onrender.com/api
-      - key: VITE_CHATBOT_URL
-        value: https://health-atlas-chatbot.onrender.com
+    dockerBuildArgs:
+      VITE_API_URL: https://health-atlas-backend.onrender.com/api
+      VITE_CHATBOT_URL: https://health-atlas-chatbot.onrender.com
 
   # AI Chatbot - FastAPI
   - type: web
