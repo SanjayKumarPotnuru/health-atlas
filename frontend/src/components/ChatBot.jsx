@@ -170,13 +170,18 @@ const ChatBot = () => {
         {isOpen ? '✕' : '💬'}
       </button>
 
-      {/* Chat Window */}
-      {isOpen && (
-        <div className="chat-window">
-          <div className="chat-header">
-            <h3>🏥 Health Atlas AI Assistant</h3>
-            <button onClick={() => setIsOpen(false)} className="close-button">✕</button>
-          </div>
+      {/* Sidebar Overlay */}
+      <div 
+        className={`chat-sidebar-overlay ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Chat Sidebar */}
+      <div className={`chat-window ${isOpen ? 'open' : ''}`}>
+        <div className="chat-header">
+          <h3>🏥 Health Atlas AI Assistant</h3>
+          <button onClick={() => setIsOpen(false)} className="close-button">✕</button>
+        </div>
 
           <div className="chat-messages">
             {messages.map((message, index) => (
@@ -245,7 +250,6 @@ const ChatBot = () => {
             </button>
           </form>
         </div>
-      )}
     </>
   );
 };
