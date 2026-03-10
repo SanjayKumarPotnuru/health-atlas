@@ -35,6 +35,12 @@ export default function DoctorDashboard() {
     fetchOrgans()
     fetchPatients()
     fetchPrescriptions()
+    const interval = setInterval(() => {
+      fetchConsents()
+      fetchPatients()
+      fetchPrescriptions()
+    }, 30000)
+    return () => clearInterval(interval)
   }, [])
 
   // Close dropdown when clicking outside

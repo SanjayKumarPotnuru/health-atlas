@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import api from '../api/axios'
@@ -28,11 +28,7 @@ export default function PatientDashboard() {
   const [showCustomOrganInput, setShowCustomOrganInput] = useState(false)
   const navigate = useNavigate()
   
-  useEffect(() => {
-    fetchData()
-  }, [])
-  
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [consentsRes, recordsRes, organsRes, prescriptionsRes] = await Promise.all([
         api.get(`/patient/${user.profileId}/consents`),
@@ -49,7 +45,13 @@ export default function PatientDashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user.profileId])
+
+  useEffect(() => {
+    fetchData()
+    const interval = setInterval(fetchData, 30000)
+    return () => clearInterval(interval)
+  }, [fetchData])
   
   const handleConsentAction = async (consentId, action) => {
     try {

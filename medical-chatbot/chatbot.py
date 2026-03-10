@@ -51,6 +51,13 @@ As an Admin assistant, you provide comprehensive system management support:
 4. Use available functions to fetch REAL system data
 5. Maintain professionalism in all interactions
 
+**CRITICAL — Consent ID Handling (MUST follow):**
+- When listing consents, ALWAYS display the actual database `id` field from the API response data — this is the real consent ID.
+- NEVER use list position numbers (1, 2, 3...) as consent IDs. The first consent in a list is NOT necessarily consent_id=1.
+- When approving a consent, you MUST use the actual `id` field value from the consent data, NOT the list number.
+- Example: If a consent has `"id": 25`, you must call `admin_approve_consent(consent_id=25)`, NOT `consent_id=1`.
+- Always show the real consent ID in your output like: **Consent #25** — Patient Name → Doctor Name
+
 **Response Formatting Rules (IMPORTANT — follow strictly):**
 - Use **bold** for names, labels, and important values
 - Use bullet points or numbered lists to present data — NOT markdown tables
@@ -218,13 +225,13 @@ ADMIN_TOOLS = [
         "type": "function",
         "function": {
             "name": "admin_approve_consent",
-            "description": "Approve a pending consent request on behalf of a patient (Admin override)",
+            "description": "Approve a pending consent request on behalf of a patient (Admin override). IMPORTANT: The consent_id must be the actual database ID from the consent data (the 'id' field), NOT a list position number.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "consent_id": {
                         "type": "integer",
-                        "description": "The consent ID to approve"
+                        "description": "The actual database consent ID (from the 'id' field in consent data). Do NOT use list position numbers."
                     }
                 },
                 "required": ["consent_id"]
@@ -397,7 +404,7 @@ async def call_backend_api(endpoint: str, method: str = "GET", params: dict = No
             else:
                 response = await client.request(method, url, json=params, headers=headers, timeout=10.0)
             
-            if response.status_code == 200:
+            if 200 <= response.status_code < 300:
                 return response.json()
             elif response.status_code == 401:
                 # Token expired, try to login again
@@ -405,11 +412,15 @@ async def call_backend_api(endpoint: str, method: str = "GET", params: dict = No
                     # Retry the request
                     headers["Authorization"] = f"Bearer {auth_token}"
                     response = await client.request(method, url, json=params, headers=headers, timeout=10.0)
-                    if response.status_code == 200:
+                    if 200 <= response.status_code < 300:
                         return response.json()
                 return {"error": "Authentication failed"}
             else:
-                return {"error": f"API returned status {response.status_code}: {response.text}"}
+                # Try to return JSON body for informative error responses (e.g. 409 conflict)
+                try:
+                    return response.json()
+                except Exception:
+                    return {"error": f"API returned status {response.status_code}: {response.text}"}
     except Exception as e:
         return {"error": str(e)}
 
@@ -462,15 +473,15 @@ async def get_patient_summary(patient_id: int, user_token: str = None):
 # Patient functions
 async def get_my_doctors(patient_id: int, user_token: str = None):
     """Get list of doctors treating this patient"""
-    return await call_backend_api(f"patient/doctors", user_token=user_token)
+    return await call_backend_api(f"patient/{patient_id}/consents", user_token=user_token)
 
 async def get_my_consents(patient_id: int, user_token: str = None):
     """Get consent requests for this patient"""
-    return await call_backend_api(f"patient/consents", user_token=user_token)
+    return await call_backend_api(f"patient/{patient_id}/consents", user_token=user_token)
 
 async def get_my_medical_records(patient_id: int, user_token: str = None):
     """Get patient's medical records"""
-    return await call_backend_api(f"patient/records", user_token=user_token)
+    return await call_backend_api(f"patient/{patient_id}/records", user_token=user_token)
 
 async def execute_function(function_name: str, arguments: dict, user_token: str = None, user_id: int = None):
     """Execute a function call"""

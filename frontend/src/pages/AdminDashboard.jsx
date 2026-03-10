@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import api from '../api/axios'
@@ -19,11 +19,7 @@ export default function AdminDashboard() {
   const [showDetailsModal, setShowDetailsModal] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    fetchDashboardData()
-  }, [])
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     try {
       const [statsRes, usersRes, patientsRes, doctorsRes, recordsRes, consentsRes, pendingRes] = await Promise.all([
         api.get('/admin/dashboard/stats'),
@@ -46,7 +42,13 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    fetchDashboardData()
+    const interval = setInterval(fetchDashboardData, 30000)
+    return () => clearInterval(interval)
+  }, [fetchDashboardData])
 
   const handleLogout = () => {
     logout()
@@ -139,6 +141,7 @@ export default function AdminDashboard() {
       <header className="dashboard-header">
         <h1>🔐 Admin Dashboard</h1>
         <div className="user-info">
+          <button onClick={fetchDashboardData} className="btn btn-secondary" style={{fontSize: '0.85rem', padding: '6px 12px'}}>🔄 Refresh</button>
           <span>👤 Admin</span>
           <button onClick={() => navigate('/profile')} className="btn btn-link">👤 Profile</button>
           <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
