@@ -37,6 +37,7 @@ export default function PrescriptionView({ prescriptions, userRole, title }) {
       const blob = new Blob([response.data], { type: 'application/pdf' })
       const url = window.URL.createObjectURL(blob)
       window.open(url, '_blank')
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000)
     } catch (error) {
       alert('Failed to open prescription PDF')
     }

@@ -335,7 +335,7 @@ PATIENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "get_my_doctors",
-            "description": "Get list of doctors treating this patient",
+            "description": "Get list of doctors treating this patient (from consent records which include doctor details)",
             "parameters": {
                 "type": "object",
                 "properties": {},
@@ -472,8 +472,9 @@ async def get_patient_summary(patient_id: int, user_token: str = None):
 
 # Patient functions
 async def get_my_doctors(patient_id: int, user_token: str = None):
-    """Get list of doctors treating this patient"""
+    """Get list of doctors treating this patient (extracted from consents)"""
     return await call_backend_api(f"patient/{patient_id}/consents", user_token=user_token)
+    # Doctors are linked to patients through consents — extract doctor info from consent data
 
 async def get_my_consents(patient_id: int, user_token: str = None):
     """Get consent requests for this patient"""

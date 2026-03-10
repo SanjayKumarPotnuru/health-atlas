@@ -9,7 +9,8 @@ export default function PrivateRoute({ children, role }) {
   }
   
   if (role && user?.role !== role) {
-    return <Navigate to={user?.role === 'PATIENT' ? '/patient' : '/doctor'} />
+    const redirectPath = user?.role === 'PATIENT' ? '/patient' : user?.role === 'ADMIN' ? '/admin' : '/doctor'
+    return <Navigate to={redirectPath} />
   }
   
   return children

@@ -135,7 +135,7 @@ export default function AnatomyViewer() {
             <div className="av-patient-info">
               <span className="av-patient-name">{patientInfo.firstName} {patientInfo.lastName}</span>
               <span className="av-patient-meta">
-                {new Date().getFullYear() - new Date(patientInfo.dateOfBirth).getFullYear()} yrs • {patientInfo.gender} • ID: #{patientId}
+                {patientInfo.dateOfBirth ? `${new Date().getFullYear() - new Date(patientInfo.dateOfBirth).getFullYear()} yrs` : 'N/A'} • {patientInfo.gender} • ID: #{patientId}
               </span>
             </div>
           </div>
