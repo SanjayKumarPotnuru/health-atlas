@@ -5,21 +5,30 @@ import { useAuthStore } from '../store/authStore';
 import './ChatBot.css';
 
 const ChatBot = () => {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
-  
-  // Get user information from auth store
+  // Get user information from auth store first
   const { user, token, isAuthenticated } = useAuthStore();
   
-  const CHATBOT_API_URL = 'http://localhost:8087';
-
   // Only show chatbot for authenticated users
   if (!isAuthenticated) {
     return null;
   }
+
+  // All state declarations
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  
+  // All refs
+  const messagesEndRef = useRef(null);
+  const chatWindowRef = useRef(null);
+  const dragStartX = useRef(0);
+  const currentOffset = useRef(0);
+  
+  const CHATBOT_API_URL = 'http://localhost:8087';
 
   // Auto-scroll to bottom when new messages arrive
   const scrollToBottom = () => {
@@ -29,6 +38,61 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Drag handlers for moving chat window
+  const handleMouseDown = (e) => {
+    if (!isOpen || isMaximized) return;
+    // Don't start drag if clicking on buttons inside the header
+    if (e.target.closest('button')) return;
+    e.preventDefault();
+    setIsDragging(true);
+    dragStartX.current = e.clientX;
+    currentOffset.current = dragOffset;
+  };
+
+  useEffect(() => {
+    if (!isDragging || !isOpen) return;
+
+    const handleMouseMove = (e) => {
+      const pixelsMoved = dragStartX.current - e.clientX;
+      const newOffset = currentOffset.current + pixelsMoved;
+      const clamped = Math.max(-50, Math.min(250, newOffset));
+      
+      // Update ref for real-time feedback
+      currentOffset.current = clamped;
+      setDragOffset(clamped);
+      
+      // Apply transform directly to DOM for immediate visual feedback
+      if (chatWindowRef.current) {
+        chatWindowRef.current.style.transform = `translateX(${clamped}px)`;
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      
+      // Snap to edge
+      if (currentOffset.current > 100) {
+        setDragOffset(200);
+        if (chatWindowRef.current) {
+          chatWindowRef.current.style.transform = 'translateX(200px)';
+        }
+      } else {
+        setDragOffset(0);
+        if (chatWindowRef.current) {
+          chatWindowRef.current.style.transform = 'translateX(0px)';
+        }
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, isOpen, dragOffset]);
 
   // Role-based welcome messages
   const getWelcomeMessage = () => {
@@ -177,10 +241,40 @@ const ChatBot = () => {
       />
 
       {/* Chat Sidebar */}
-      <div className={`chat-window ${isOpen ? 'open' : ''}`}>
-        <div className="chat-header">
+      <div 
+        className={`chat-window ${isOpen ? 'open' : ''} ${isDragging ? 'dragging' : ''} ${isMaximized ? 'maximized' : ''}`}
+        ref={chatWindowRef}
+        style={{
+          transform: isOpen ? `translateX(${isMaximized ? 0 : dragOffset}px)` : 'translateX(100%)'
+        }}
+      >
+        <div 
+          className="chat-header"
+          onMouseDown={!isMaximized ? handleMouseDown : undefined}
+          style={{ cursor: isMaximized ? 'default' : isDragging ? 'grabbing' : 'grab' }}
+        >
+          {!isMaximized && <span className="drag-indicator" title="Drag to reposition">↔</span>}
           <h3>🏥 Health Atlas AI Assistant</h3>
-          <button onClick={() => setIsOpen(false)} className="close-button">✕</button>
+          <div className="header-actions">
+            <button
+              onClick={() => { setIsMaximized(m => !m); setDragOffset(0); }}
+              className="maximize-button"
+              title={isMaximized ? 'Restore' : 'Maximize'}
+            >
+              {isMaximized ? (
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="4" width="9" height="9" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M4 4V2a1 1 0 011-1h7a1 1 0 011 1v7a1 1 0 01-1 1h-2" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="1" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M5 1v4H1M9 1v4h4M5 13V9H1M9 13V9h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              )}
+            </button>
+            <button onClick={() => { setIsOpen(false); setIsMaximized(false); }} className="close-button">✕</button>
+          </div>
         </div>
 
           <div className="chat-messages">
